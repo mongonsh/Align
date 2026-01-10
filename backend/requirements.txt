@@ -6,3 +6,8 @@ aiofiles==23.2.1
 Pillow==10.2.0
 google-generativeai==0.3.2
 python-dotenv==1.0.0
+elevenlabs==1.2.2
+# Hackathon Features Dependencies
+websockets==12.0
+aiohttp==3.9.1
+python-multipart==0.0.6

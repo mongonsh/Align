@@ -41,28 +41,58 @@ class GeminiClient:
             Complete HTML/CSS mockup as string
         """
         import asyncio
+        import logging
         
-        system_prompt = self._build_system_prompt(requirements)
-        full_prompt = f"{system_prompt}\n\nUser Request: {prompt}"
+        logger = logging.getLogger(__name__)
+        
+        try:
+            logger.info(f"Starting Gemini mockup generation with prompt: {prompt[:100]}...")
+            
+            system_prompt = self._build_system_prompt(requirements)
+            full_prompt = f"{system_prompt}\n\nUser Request: {prompt}"
 
-        # Prepare image for Gemini
-        image_parts = [
-            {
-                "mime_type": "image/png",
-                "data": base64.b64encode(image_bytes).decode('utf-8')
-            }
-        ]
+            # Prepare image for Gemini
+            image_parts = [
+                {
+                    "mime_type": "image/png",
+                    "data": base64.b64encode(image_bytes).decode('utf-8')
+                }
+            ]
 
-        # Generate response in a thread pool since Gemini API is synchronous
-        def _generate_sync():
-            return self.model.generate_content([
-                full_prompt,
-                image_parts[0]
-            ])
+            logger.info("Sending request to Gemini API...")
+            
+            # Generate response in a thread pool since Gemini API is synchronous
+            def _generate_sync():
+                try:
+                    response = self.model.generate_content([
+                        full_prompt,
+                        image_parts[0]
+                    ])
+                    logger.info("Gemini API response received successfully")
+                    return response
+                except Exception as e:
+                    logger.error(f"Gemini API error: {str(e)}")
+                    raise
 
-        response = await asyncio.get_event_loop().run_in_executor(None, _generate_sync)
-        html_content = self._extract_html(response.text)
-        return html_content
+            response = await asyncio.get_event_loop().run_in_executor(None, _generate_sync)
+            
+            if not response or not response.text:
+                logger.error("Empty response from Gemini API")
+                raise ValueError("Empty response from Gemini API")
+                
+            logger.info(f"Gemini response length: {len(response.text)} characters")
+            
+            html_content = self._extract_html(response.text)
+            logger.info(f"HTML extracted successfully, length: {len(html_content)} characters")
+            
+            return html_content
+            
+        except Exception as e:
+            logger.error(f"Error in generate_mockup: {str(e)}")
+            logger.error(f"Image bytes length: {len(image_bytes) if image_bytes else 'None'}")
+            logger.error(f"Prompt: {prompt}")
+            logger.error(f"Requirements: {requirements}")
+            raise
 
     def _build_system_prompt(self, requirements: dict) -> str:
         """Build comprehensive prompt for Gemini."""
