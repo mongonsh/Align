@@ -1,0 +1,34 @@
+{
+  "name": "Image Enhancement Plugin",
+  "version": "1.0.0",
+  "description": "Enhances images and prompts before mockup generation",
+  "author": "Align Team",
+  "entry_point": "plugin.ImageEnhancementPlugin",
+  "dependencies": [],
+  "permissions": [
+    "modify_uploads",
+    "modify_prompts",
+    "modify_mockups",
+    "custom_ai_provider"
+  ],
+  "hooks": [
+    "before_upload",
+    "before_mockup_generate", 
+    "after_mockup_generate",
+    "custom_ai_provider"
+  ],
+  "config_schema": {
+    "type": "object",
+    "properties": {
+      "enhancement_level": {
+        "type": "string",
+        "enum": ["basic", "advanced"],
+        "default": "basic"
+      },
+      "add_watermark": {
+        "type": "boolean",
+        "default": false
+      }
+    }
+  }
+}

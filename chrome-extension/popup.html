@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 350px;
+      padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #2563eb;
+      margin-bottom: 5px;
+    }
+    
+    .subtitle {
+      font-size: 12px;
+      color: #6b7280;
+    }
+    
+    .action-button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .primary {
+      background: #2563eb;
+      color: white;
+    }
+    
+    .primary:hover {
+      background: #1d4ed8;
+    }
+    
+    .secondary {
+      background: #f3f4f6;
+      color: #374151;
+      border: 1px solid #d1d5db;
+    }
+    
+    .secondary:hover {
+      background: #e5e7eb;
+    }
+    
+    .status {
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      font-size: 12px;
+      text-align: center;
+    }
+    
+    .status.success {
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+    
+    .status.error {
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+    }
+    
+    .status.loading {
+      background: #eff6ff;
+      color: #2563eb;
+      border: 1px solid #bfdbfe;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    .workflow-step {
+      padding: 8px 12px;
+      margin: 4px 0;
+      background: #f9fafb;
+      border-radius: 6px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .step-number {
+      background: #2563eb;
+      color: white;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: bold;
+    }
+    
+    .step-number.completed {
+      background: #10b981;
+    }
+    
+    .step-number.current {
+      background: #f59e0b;
+    }
+    
+    .partner-info {
+      background: #f0f9ff;
+      border: 1px solid #0ea5e9;
+      border-radius: 6px;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 12px;
+    }
+    
+    .partner-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 5px;
+    }
+    
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    
+    .status-dot.connected {
+      background: #10b981;
+    }
+    
+    .status-dot.disconnected {
+      background: #ef4444;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">Align</div>
+    <div class="subtitle">AI-Powered UI Mockup Generator</div>
+  </div>
+
+  <!-- Main Actions -->
+  <div id="main-actions">
+    <button id="capture-btn" class="action-button primary">
+      📸 Capture & Generate Mockup
+    </button>
+    
+    <button id="quick-feedback-btn" class="action-button secondary">
+      💬 Quick Feedback
+    </button>
+    
+    <button id="view-mockups-btn" class="action-button secondary">
+      📋 View My Mockups
+    </button>
+  </div>
+
+  <!-- Workflow Steps -->
+  <div id="workflow-steps" class="hidden">
+    <div class="workflow-step">
+      <div class="step-number" id="step-1">1</div>
+      <span>Capture Screenshot</span>
+    </div>
+    <div class="workflow-step">
+      <div class="step-number" id="step-2">2</div>
+      <span>Describe Changes</span>
+    </div>
+    <div class="workflow-step">
+      <div class="step-number" id="step-3">3</div>
+      <span>Generate Mockup</span>
+    </div>
+    <div class="workflow-step">
+      <div class="step-number" id="step-4">4</div>
+      <span>Review & Share</span>
+    </div>
+  </div>
+
+  <!-- Status Messages -->
+  <div id="status" class="hidden"></div>
+
+  <!-- Partner Team Integration -->
+  <div class="partner-info">
+    <strong>🤝 Partner Integration</strong>
+    <div class="partner-status">
+      <div class="status-dot" id="partner-dot"></div>
+      <span id="partner-status">Checking connection...</span>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div id="quick-actions" class="hidden">
+    <button id="retry-btn" class="action-button secondary">
+      🔄 Retry
+    </button>
+    
+    <button id="reset-btn" class="action-button secondary">
+      ↩️ Start Over
+    </button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

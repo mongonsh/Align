@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { api } from '@/lib/api';
+import VoiceOutput from '../components/VoiceOutput';
 
 interface MockupViewProps {
   imageId: string;
@@ -76,6 +77,16 @@ export default function MockupView({
             <p className="text-green-800">
               <strong>Mockup generated successfully!</strong> Review the changes below.
             </p>
+            
+            {/* Voice Summary */}
+            <div className="mt-3 p-3 bg-white rounded border">
+              <h5 className="font-medium text-gray-700 mb-2">Listen to Summary</h5>
+              <VoiceOutput
+                text={`Your mockup has been generated successfully! I've created an updated version of your interface based on your request: ${description}. You can now review the changes and export the mockup when you're ready.`}
+                autoPlay={false}
+                onError={onError}
+              />
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">

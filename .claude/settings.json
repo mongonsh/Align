@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "mcp-1768019536221-9e2xsx6": {
+      "id": "mcp-1768019536221-9e2xsx6",
+      "name": "flaywright",
+      "description": "",
+      "type": "http",
+      "command": "npx",
+      "args": [],
+      "env": {},
+      "enabled": false,
+      "order": 0,
+      "source": "custom",
+      "orphaned": false
+    }
+  }
+}

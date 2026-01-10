@@ -46,6 +46,19 @@ export interface MockupData {
   prompt: string;
 }
 
+export interface VoiceResponse {
+  text: string;
+  audio_format: string;
+  filename: string;
+}
+
+export interface Voice {
+  voice_id: string;
+  name: string;
+  category: string;
+  description: string;
+}
+
 export const api = {
   async uploadImage(file: File): Promise<UploadResponse> {
     const formData = new FormData();
@@ -124,5 +137,64 @@ export const api = {
 
   getDownloadUrl(mockupId: string, format: string = 'html'): string {
     return `${API_BASE_URL}/api/export/${mockupId}?format=${format}`;
+  },
+
+  // Voice API methods
+  async speechToText(audioBlob: Blob, filename: string = 'audio.webm'): Promise<VoiceResponse> {
+    const formData = new FormData();
+    formData.append('audio', audioBlob, filename);
+
+    const response = await fetch(`${API_BASE_URL}/api/voice/speech-to-text`, {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Speech-to-text failed: ${response.statusText}`);
+    }
+
+    return response.json();
+  },
+
+  async textToSpeech(text: string, voiceId?: string): Promise<Blob> {
+    const response = await fetch(`${API_BASE_URL}/api/voice/text-to-speech`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        text,
+        voice_id: voiceId,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Text-to-speech failed: ${response.statusText}`);
+    }
+
+    return response.blob();
+  },
+
+  async getVoices(): Promise<Voice[]> {
+    const response = await fetch(`${API_BASE_URL}/api/voice/voices`);
+
+    if (!response.ok) {
+      throw new Error(`Failed to get voices: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data.voices;
+  },
+
+  async getMockupSummary(mockupId: string): Promise<Blob> {
+    const response = await fetch(`${API_BASE_URL}/api/voice/mockup-summary?mockup_id=${mockupId}`, {
+      method: 'POST',
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to get mockup summary: ${response.statusText}`);
+    }
+
+    return response.blob();
   },
 };

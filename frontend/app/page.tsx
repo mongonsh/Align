@@ -41,7 +41,7 @@ export default function Home() {
             <div className="flex items-center gap-3">
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">Align</h1>
-                <p className="text-xs text-gray-500">AI-Powered Mockup Generator</p>
+                <p className="text-xs text-gray-500">AI-Powered UI Mockup Generator</p>
               </div>
             </div>
             <div className="text-sm text-gray-500">
@@ -178,10 +178,9 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="text-center text-sm text-gray-500">
             <p className="mb-2">
-              <strong>Align</strong> - Align customer and engineer expectations before coding starts
+              <strong>Align</strong>  Align customer and engineer expectations before coding starts
             </p>
-            <p>Built with concept-based design for the De-Vibed Hackathon</p>
-            <p className="mt-2">Sponsored by CommandCenter (cc.dev)</p>
+            
           </div>
         </div>
       </footer>

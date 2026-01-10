@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { api } from '@/lib/api';
+import VoiceInput from '../components/VoiceInput';
 
 interface PromptViewProps {
   imageId: string;
@@ -34,6 +35,10 @@ export default function PromptView({ imageId, imageFile, onSubmit, onError }: Pr
     } finally {
       setIsProcessing(false);
     }
+  };
+
+  const handleVoiceTranscription = (text: string) => {
+    setDescription(text);
   };
 
   const examples = [
@@ -83,15 +88,30 @@ export default function PromptView({ imageId, imageFile, onSubmit, onError }: Pr
           <label htmlFor="description" className="block text-sm font-medium mb-2">
             Describe the changes you want
           </label>
-          <textarea
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            rows={4}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-            placeholder="e.g., Make the header dark blue and add a search bar in the top right corner"
-            disabled={isProcessing}
-          />
+          <div className="relative">
+            <textarea
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows={4}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+              placeholder="e.g., Make the header dark blue and add a search bar in the top right corner"
+              disabled={isProcessing}
+            />
+          </div>
+          
+          {/* Voice Input Section */}
+          <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+            <div className="flex items-center justify-between mb-3">
+              <h4 className="font-medium text-gray-700">Voice Input</h4>
+              <span className="text-xs text-gray-500">Speak your description</span>
+            </div>
+            <VoiceInput
+              onTranscription={handleVoiceTranscription}
+              onError={onError}
+              disabled={isProcessing}
+            />
+          </div>
         </div>
 
         {requirements && (

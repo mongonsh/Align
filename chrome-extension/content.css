@@ -1,0 +1,85 @@
+/* Align Chrome Extension - Content Styles */
+
+/* Ensure extension elements don't interfere with page styles */
+#align-extension-overlay,
+#align-extension-overlay * {
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+/* Override any potential conflicts */
+#align-extension-overlay {
+  all: initial !important;
+  position: fixed !important;
+  top: 20px !important;
+  right: 20px !important;
+  width: 320px !important;
+  background: white !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+  z-index: 2147483647 !important; /* Maximum z-index */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  border: 1px solid #e5e7eb !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+
+/* Selection overlay styles */
+#align-selection-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: rgba(0, 0, 0, 0.3) !important;
+  z-index: 2147483646 !important;
+  cursor: crosshair !important;
+}
+
+/* Notification styles */
+.align-notification {
+  position: fixed !important;
+  top: 20px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  padding: 12px 20px !important;
+  border-radius: 8px !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 14px !important;
+  z-index: 2147483647 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+.align-notification.error {
+  background: #fef2f2 !important;
+  color: #dc2626 !important;
+  border: 1px solid #fecaca !important;
+}
+
+.align-notification.success {
+  background: #dcfce7 !important;
+  color: #166534 !important;
+  border: 1px solid #bbf7d0 !important;
+}
+
+/* Ensure buttons and inputs work properly */
+#align-extension-overlay button {
+  cursor: pointer !important;
+  border: none !important;
+  outline: none !important;
+}
+
+#align-extension-overlay input,
+#align-extension-overlay textarea {
+  outline: none !important;
+  font-family: inherit !important;
+}
+
+#align-extension-overlay button:focus,
+#align-extension-overlay input:focus,
+#align-extension-overlay textarea:focus {
+  outline: 2px solid #2563eb !important;
+  outline-offset: 2px !important;
+}
