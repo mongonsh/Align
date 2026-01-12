@@ -172,19 +172,6 @@ This project follows concept-based design principles:
 3. **Clear purpose** - Each concept has a single, well-defined purpose
 4. **Composable** - Concepts can be combined without modification
 
-### Example: Clean Separation
-
-```python
-# GOOD: Clean concept separation
-@app.post("/generate")
-async def generate_mockup(request: GenerateRequest):
-    # Each concept handles its responsibility
-    image_bytes = await upload_concept.get_current(request.image_id)
-    requirements = prompt_concept.parse_intent(request.description)
-    mockup_data = await mockup_concept.generate(image_bytes, request.description, requirements)
-    response = export_concept.prepare_response(mockup_data["html"], mockup_data["mockup_id"])
-    return response
-```
 
 ## Development
 
@@ -239,15 +226,3 @@ Frontend runs on [http://localhost:3000](http://localhost:3000)
 - [ ] WebSocket real-time generation
 - [ ] Mobile app
 
-## Built For
-
-**De-Vibed Hackathon**
-Sponsored by CommandCenter (cc.dev)
-
-## License
-
-MIT
-
-## Credits
-
-Architecture inspired by Daniel Jackson's "The Essence of Software"
